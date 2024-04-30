@@ -6,5 +6,5 @@ Esse trabalho tem como objetivo a criação de uma agenda de compromissos para u
 ## ✒️ Autores
 
 * **Michel Soares** - [GitHub](https://github.com/UNI-MichelSoares)
-* **Isabella Rocha** - [GitHub]
-* **Breno Guimarães** - [GitHub]
+* **Isabella Rocha** - [GitHub](https://github.com/Iswb04)
+* **Breno Guimarães** - [GitHub](https://github.com/bgpereiraS)
