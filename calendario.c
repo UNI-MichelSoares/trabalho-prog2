@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 
-void exibirCalendario(int diaDaSemana, int bissexto);
+void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[12][31], int escolha);
 
 int main(void) {
   
+
+
   return 0;
 }
 
-void exibirCalendario(int diaDaSemana, int bissexto) {
+void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[12][31], int escolha) {
 
   int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
   char meses[12][20] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
@@ -27,8 +29,14 @@ void exibirCalendario(int diaDaSemana, int bissexto) {
     }
 
     // Printa os dias de cada mês e atualiza o último dia da semana do mês anterior.
+    // Caso o usuário queira, pode printar o calendário de agendamentos.
     for (int j = 1; j <= diasEmCadaMes[i]; j++) {
-      printf("%-2d  ", j);
+      if (escolha == 1){
+        printf("%-2d  ", j);
+      }
+      else{
+        printf("%-2d  ",agendamentos[i][j]);
+      }
 
       // Atualiza o último dia da semana do mês anterior.
       ultimo = (ultimo + 1) % 7;
