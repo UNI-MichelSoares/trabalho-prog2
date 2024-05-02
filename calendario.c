@@ -1,12 +1,12 @@
 #include <stdio.h>
 
 void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha);
-void agendarConsultas(int agendamentos[], int dia, int duracao, int bissexto);
 void preencherComZeros(int vetor[], int tamanho);
 int converterParaDiasDoAno(int mes, int dia, int bissexto);
+void agendarConsultas(int agendamentos[], int dia, int duracao);
 
 int main(void) {
-  
+
   // Declaração de variáveis.
   int mesAgendamento, diaAgendamento, duracaoAgendamento;
   int diaDaSemana, bissexto, escolhaExibicao;
@@ -66,22 +66,21 @@ int main(void) {
 
 /*
 Função para exibir um calendário mensal.
- 
+
 diaDaSemana: O dia da semana para o primeiro dia do ano (1 para domingo, 2 para segunda-feira, etc.).
 bissexto: Indica se o ano é bissexto (1 para sim, 0 para não).
 agendamentos: Um array de agendamentos para exibir no calendário, se escolha for 0.
 escolha: Um indicador para exibir o calendário normal (1) ou os agendamentos (0).
- 
+
 Nenhum retorno específico, apenas exibe o calendário ou agendamentos na saída padrão.
 */
-
 void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha) {
 
   int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  char meses[12][20] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+  char meses[12][10] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
   // Último dia da semana de cada mês, começa com o valor do 1° dia da semana do ano.
-  int ultimo = diaDaSemana;
+  int ultimo = diaDaSemana - 1;
 
   for (int i = 0; i < 12; i++) {
     // Printa o nome do mês.
@@ -100,7 +99,7 @@ void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int esc
         printf("%-2d  ", j);
       }
       else{
-        printf("%-2d  ",agendamentos[j]);
+        printf("%-2d  ", agendamentos[converterParaDiasDoAno(i + 1, j, bissexto) - 1]);
       }
 
       // Atualiza o último dia da semana do mês anterior.
@@ -115,77 +114,6 @@ void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int esc
 }
 
 /*
-Função que verifica a possibilidade de marcar uma consulta e, se possível, a agenda.
-
-agendamentos: O vetor que armazena as consultas marcadas.
-dia: O dia do ano que será agendada a consulta.
-duracao: Por quantos dias se deve agendar a consulta.
-bissexto: Se o ano é bissexto ou não, para formatação de data.
-
-Nenhum retorno especifíco, apenas agenda ou não a consulta.
-*/
-
-void agendarConsultas(int agendamentos[], int dia, int duracao, int bissexto) {
-// Verifica se o dia escolhido está dentro do limite do array.
-if (dia <= 0 || dia > 365 + bissexto || dia + duracao - 1 > 365 + bissexto) {
-  printf("Data inválida para agendar consultas.\n");
-  return;
-}
-
-// Calcula o mês e o dia correspondentes ao número do dia do ano.
-int mes, diaDoMes;
-int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-int diasRestantes = dia;
-for (mes = 0; mes < 12; mes++) {
-  if (diasRestantes <= diasEmCadaMes[mes]) {
-    diaDoMes = diasRestantes;
-    break;
-  }
-  diasRestantes -= diasEmCadaMes[mes];
-}
-  // Nomes dos meses por extenso
-  char nomesMeses[12][10] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-
-  // Verifica a disponibilidade para todos os dias da duração da consulta.
-  for (int i = dia - 1; i < dia - 1 + duracao; i++) {
-    if (agendamentos[i] >= 5) {
-      printf("Dia %d de %s indisponível para agendar consultas.\n", diaDoMes, nomesMeses[mes]);
-      return;
-    }
-  }
-
-  // Aumenta o número de agendamentos para todos os dias da duração da consulta.
-  for (int i = dia - 1; i < dia - 1 + duracao; i++) {
-    agendamentos[i]++;
-  }
-
-  printf("Consulta agendada com sucesso!\n");
-}
-
-/*
-Função que converte um par de variáveis representando o mês e o dia em dias do ano.
-
-mes: O mês desejado (1-12).
-dia: O dia do mês (1-31).
-bissexto: Indica se o ano é bissexto (1 para sim, 0 para não).
-
-Retorna o número de dias do ano correspondente ao mês e dia fornecidos.
-*/
-
-int converterParaDiasDoAno(int mes, int dia, int bissexto) {
-  int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  int diasDoAno = 0;
-
-  // Adiciona os dias de cada mês até o mês anterior ao fornecido
-  for (int i = 0; i < mes - 1; i++) {
-      diasDoAno += diasEmCadaMes[i];
-  }
-
-  // Adiciona os dias do mês fornecido
-  return diasDoAno += dia;
-}
-
-/*
 Função que recebe um vetor e seu tamanho e o preenche com zeros.
 
 vetor: O vetor que será preenchido.
@@ -197,4 +125,58 @@ void preencherComZeros(int vetor[], int tamanho) {
   for (int i = 0; i < tamanho; i++) {
     vetor[i] = 0;
   }
+}
+
+/*
+Função que converte um par de variáveis representando o mês e o dia em dias do ano.
+
+mes: O mês desejado (1-12).
+dia: O dia do mês (1-31).
+bissexto: Indica se o ano é bissexto (1 para sim, 0 para não).
+
+Retorna o número de dias do ano correspondente ao mês e dia fornecidos.
+*/
+int converterParaDiasDoAno(int mes, int dia, int bissexto) {
+    int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int diasDoAno = 0;
+
+    // Adiciona os dias de cada mês até o mês anterior ao fornecido
+    for (int i = 0; i < mes - 1; i++) {
+        diasDoAno += diasEmCadaMes[i];
+    }
+
+    // Adiciona os dias do mês fornecido
+    return diasDoAno += dia;
+}
+
+/*
+Função que verifica a possibilidade de marcar uma consulta e, se possível, a agenda.
+
+agendamentos: O vetor que armazena as consultas marcadas.
+dia: O dia do ano que será agendada a consulta.
+duracao: Por quantos dias se deve agendar a consulta.
+
+Nenhum retorno especifíco, apenas agenda ou não a consulta.
+*/
+void agendarConsultas(int agendamentos[], int dia, int duracao) {
+  // Verifica se o dia escolhido está dentro do limite do array.
+  if (dia <= 0 || dia > 365 || dia + duracao - 1 > 365) {
+    printf("Data inválida para agendar consultas.\n");
+    return;
+  }
+
+  // Verifica a disponibilidade para todos os dias da duração da consulta.
+  for (int i = dia - 1; i < dia - 1 + duracao; i++) {
+    if (agendamentos[i] >= 5) {
+      printf("Dia %d indisponível para agendar consultas.\n", i + 1);
+      return;
+    }
+  }
+
+  // Aumenta o número de agendamentos para todos os dias da duração da consulta.
+  for (int i = dia - 1; i < dia - 1 + duracao; i++) {
+    agendamentos[i]++;
+  }
+
+  printf("Consulta agendada com sucesso!\n");
 }
