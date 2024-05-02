@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <string.h>
 
-void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[12][31], int escolha);
+void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha);
 
 int main(void) {
   
@@ -10,7 +9,18 @@ int main(void) {
   return 0;
 }
 
-void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[12][31], int escolha) {
+/*
+Função para exibir um calendário mensal.
+ 
+diaDaSemana: O dia da semana para o primeiro dia do ano (1 para domingo, 2 para segunda-feira, etc.).
+bissexto: Indica se o ano é bissexto (1 para sim, 0 para não).
+agendamentos: Um array de agendamentos para exibir no calendário, se escolha for 0.
+escolha: Um indicador para exibir o calendário normal (1) ou os agendamentos (0).
+ 
+Nenhum retorno específico, apenas exibe o calendário ou agendamentos na saída padrão.
+*/
+
+void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha) {
 
   int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
   char meses[12][20] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
@@ -35,7 +45,7 @@ void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[12][31], i
         printf("%-2d  ", j);
       }
       else{
-        printf("%-2d  ",agendamentos[i][j]);
+        printf("%-2d  ",agendamentos[j]);
       }
 
       // Atualiza o último dia da semana do mês anterior.
