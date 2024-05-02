@@ -18,13 +18,21 @@ int main(void) {
 
     // Tratamento de erro, impede o usuário de digitar uma data inválida.
     if (diaDaSemana > 7 || diaDaSemana < 1){
-      printf("Dia inválido, escolha de 1 à 7 (Domingo à sábado.");
+      printf("\nDia inválido, escolha de 1 à 7 (Domingo à sábado).\n");
     }
   }
   while(diaDaSemana > 7 || diaDaSemana < 1);
 
-  printf("Informe se o ano é bissexto ou não.\n[1] É bissexto.\n[0] Não é bissexto\n- \n");
-  scanf("%d", &bissexto);
+  do {
+    printf("Informe se o ano é bissexto ou não.\n[1] É bissexto.\n[0] Não é bissexto\n- \n");
+    scanf("%d", &bissexto);
+
+    // Tratamento de erro, impede o usuário de digitar uma resposta inválida.
+    if (bissexto != 1 && bissexto != 0){
+      printf("\nResposta inválida.\n");
+    }
+  }
+  while (bissexto != 1 && bissexto != 0);
 
   // Criando e preenchendo agendamentos com zero, tamanho baseado se é bissexto ou não.
   int qtdAgendamentos[365 + bissexto];
