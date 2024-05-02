@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha);
-void agendarConsultas(int agendamentos[], int dia);
+void agendarConsultas(int agendamentos[], int dia, int duracao);
 
 int main(void) {
   
