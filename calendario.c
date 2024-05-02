@@ -12,8 +12,16 @@ int main(void) {
   int diaDaSemana, bissexto, escolhaExibicao;
 
   // Input do dia da semana que cai 1 de janeiro e se é bissexto:
-  printf("Informe o dia da semana que cai 1° de janeiro:\n[1] Domingo, [2] Segunda, etc.\n- \n");
-  scanf("%d", &diaDaSemana);
+  do {
+    printf("Informe o dia da semana que cai 1° de janeiro:\n[1] Domingo, [2] Segunda, etc.\n- \n");
+    scanf("%d", &diaDaSemana);
+
+    // Tratamento de erro, impede o usuário de digitar uma data inválida.
+    if (diaDaSemana > 7 || diaDaSemana < 1){
+      printf("Dia inválido, escolha de 1 à 7 (Domingo à sábado.");
+    }
+  }
+  while(diaDaSemana > 7 || diaDaSemana < 1);
 
   printf("Informe se o ano é bissexto ou não.\n[1] É bissexto.\n[0] Não é bissexto\n- \n");
   scanf("%d", &bissexto);
@@ -137,16 +145,16 @@ bissexto: Indica se o ano é bissexto (1 para sim, 0 para não).
 Retorna o número de dias do ano correspondente ao mês e dia fornecidos.
 */
 int converterParaDiasDoAno(int mes, int dia, int bissexto) {
-    int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int diasDoAno = 0;
+  int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  int diasDoAno = 0;
 
-    // Adiciona os dias de cada mês até o mês anterior ao fornecido
-    for (int i = 0; i < mes - 1; i++) {
-        diasDoAno += diasEmCadaMes[i];
-    }
+  // Adiciona os dias de cada mês até o mês anterior ao fornecido
+  for (int i = 0; i < mes - 1; i++) {
+      diasDoAno += diasEmCadaMes[i];
+  }
 
-    // Adiciona os dias do mês fornecido
-    return diasDoAno += dia;
+  // Adiciona os dias do mês fornecido
+  return diasDoAno += dia;
 }
 
 /*
