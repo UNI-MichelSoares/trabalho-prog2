@@ -65,6 +65,7 @@ Função que verifica a possibilidade de marcar uma consulta e, se possível, a 
 
 agendamentos: O vetor que armazena as consultas marcadas.
 dia: O dia do ano que será agendada a consulta.
+duracao: Por quantos dias se deve agendar a consulta.
 
 Nenhum retorno especifíco, apenas agenda ou não a consulta.
 */
