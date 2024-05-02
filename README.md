@@ -24,6 +24,7 @@ O programa é interativo e permite ao usuário visualizar o calendário mensal, 
   - **Formatação:** O modo como foi desenvolvido o programa, usando vetor de agendamentos ao invés de matriz e a exibição do calendário através de formatação com prints, ao invés de também utilizar uma matriz.
   - **Agendamentos:** Confusão ao printar o vetor de agendamentos em múltiplas áreas do código, inclusive com momentos onde a exibição não funcionava devido a forma anterior de printar dias na função `exibirCalendario` (que limitava o print de dias ao índice 31).
   - **Integração:** Dificuldade ao integrar as diferentes formas de exibição, formatos de data e tipo de valores.
+  - **Usabilidade:** Dificuldade em fazer com que um agendamento de duração 10, mas que apenas um dos dias esteja lotado, o programa agendaria as consultas para o próximo dia disponível. (Atualmente, o programa apenas impede totalmente a marcação de consulta).
 
 ## ✒️ Autores
 
