@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha);
+void agendarConsultas(int agendamentos[], int dia);
 
 int main(void) {
   
@@ -57,4 +58,16 @@ void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int esc
       }
     }
   }
+}
+
+void agendarConsultas(int agendamentos[], int dia) {
+  // Verifica a disponibilidade.
+  if (agendamentos[dia - 1] >= 5) {
+    printf("Dia indisponível para agendar consultas.\n");
+    return;
+  }
+
+  // Aumenta o número de agendamentos no dia em 1.
+  agendamentos[dia - 1]++;
+  printf("Consulta agendada com sucesso!\n");
 }
