@@ -2,6 +2,7 @@
 
 void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha);
 void agendarConsultas(int agendamentos[], int dia, int duracao, int bissexto);
+void preencherComZeros(int vetor[], int tamanho);
 int converterParaDiasDoAno(int mes, int dia, int bissexto);
 
 int main(void) {
@@ -130,4 +131,18 @@ int converterParaDiasDoAno(int mes, int dia, int bissexto) {
 
     // Adiciona os dias do mês fornecido
     return diasDoAno += dia;
+}
+
+/*
+Função que recebe um vetor e seu tamanho e o preenche com zeros.
+
+vetor: O vetor que será preenchido.
+tamanho: O tamanho do vetor.
+
+Não retorna nada em especifíco, apenas preenche o vetor.
+*/
+void preencherComZeros(int vetor[], int tamanho) {
+  for (int i = 0; i < tamanho; i++) {
+    vetor[i] = 0;
+  }
 }
