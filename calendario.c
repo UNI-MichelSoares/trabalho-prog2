@@ -60,6 +60,15 @@ void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int esc
   }
 }
 
+/*
+Função que verifica a possibilidade de marcar uma consulta e, se possível, a agenda.
+
+agendamentos: O vetor que armazena as consultas marcadas.
+dia: O dia do ano que será agendada a consulta.
+
+Nenhum retorno especifíco, apenas agenda ou não a consulta.
+*/
+
 void agendarConsultas(int agendamentos[], int dia) {
   // Verifica a disponibilidade.
   if (agendamentos[dia - 1] >= 5) {
