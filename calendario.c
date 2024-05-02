@@ -2,6 +2,7 @@
 
 void exibirCalendario(int diaDaSemana, int bissexto, int agendamentos[], int escolha);
 void agendarConsultas(int agendamentos[], int dia, int duracao);
+int converterParaDiasDoAno(int mes, int dia, int bissexto);
 
 int main(void) {
   
@@ -91,4 +92,27 @@ void agendarConsultas(int agendamentos[], int dia, int duracao) {
   }
 
   printf("Consulta agendada com sucesso!\n");
+}
+
+/*
+Função que converte um par de variáveis representando o mês e o dia em dias do ano.
+
+mes: O mês desejado (1-12).
+dia: O dia do mês (1-31).
+bissexto: Indica se o ano é bissexto (1 para sim, 0 para não).
+
+Retorna o número de dias do ano correspondente ao mês e dia fornecidos.
+*/
+
+int converterParaDiasDoAno(int mes, int dia, int bissexto) {
+    int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int diasDoAno = 0;
+
+    // Adiciona os dias de cada mês até o mês anterior ao fornecido
+    for (int i = 0; i < mes - 1; i++) {
+        diasDoAno += diasEmCadaMes[i];
+    }
+
+    // Adiciona os dias do mês fornecido
+    return diasDoAno += dia;
 }
