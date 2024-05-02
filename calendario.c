@@ -69,14 +69,25 @@ dia: O dia do ano que será agendada a consulta.
 Nenhum retorno especifíco, apenas agenda ou não a consulta.
 */
 
-void agendarConsultas(int agendamentos[], int dia) {
-  // Verifica a disponibilidade.
-  if (agendamentos[dia - 1] >= 5) {
-    printf("Dia indisponível para agendar consultas.\n");
+void agendarConsultas(int agendamentos[], int dia, int duracao) {
+  // Verifica se o dia escolhido está dentro do limite do array.
+  if (dia <= 0 || dia > 365 || dia + duracao - 1 > 365) {
+    printf("Data inválida para agendar consultas.\n");
     return;
   }
 
-  // Aumenta o número de agendamentos no dia em 1.
-  agendamentos[dia - 1]++;
+  // Verifica a disponibilidade para todos os dias da duração da consulta.
+  for (int i = dia - 1; i < dia - 1 + duracao; i++) {
+    if (agendamentos[i] >= 5) {
+      printf("Dia %d indisponível para agendar consultas.\n", i + 1);
+      return;
+    }
+  }
+
+  // Aumenta o número de agendamentos para todos os dias da duração da consulta.
+  for (int i = dia - 1; i < dia - 1 + duracao; i++) {
+    agendamentos[i]++;
+  }
+
   printf("Consulta agendada com sucesso!\n");
 }
