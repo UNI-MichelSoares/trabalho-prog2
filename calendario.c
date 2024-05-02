@@ -7,7 +7,59 @@ int converterParaDiasDoAno(int mes, int dia, int bissexto);
 
 int main(void) {
   
+  // Declaração de variáveis.
+  int mesAgendamento, diaAgendamento, duracaoAgendamento;
+  int diaDaSemana, bissexto, escolhaExibicao;
 
+  // Input do dia da semana que cai 1 de janeiro e se é bissexto:
+  printf("Informe o dia da semana que cai 1° de janeiro:\n[1] Domingo, [2] Segunda, etc.\n- \n");
+  scanf("%d", &diaDaSemana);
+
+  printf("Informe se o ano é bissexto ou não.\n[1] É bissexto.\n[0] Não é bissexto\n- \n");
+  scanf("%d", &bissexto);
+
+  // Criando e preenchendo agendamentos com zero, tamanho baseado se é bissexto ou não.
+  int qtdAgendamentos[365 + bissexto];
+  preencherComZeros(qtdAgendamentos, 365 + bissexto);
+
+  // Início do programa.
+
+  do {
+    // Menu principal:
+    printf("\n|----------| MENU PRINCIPAL |----------|\n");
+    printf("| 1 - Exibir o calendário\n| 2 - Exibir agendamentos\n| 3 - Agendar consultas\n| 4 - Encerrar programa\n| Opção:");
+    scanf("%d", &escolhaExibicao);
+
+    // Exibição baseada nas escolhas:
+    switch (escolhaExibicao) {
+      case 1:
+        exibirCalendario(diaDaSemana, bissexto, qtdAgendamentos, 1);
+        break;
+      case 2:
+        exibirCalendario(diaDaSemana, bissexto, qtdAgendamentos, 0);
+        break;
+      case 3:
+        // Coleta de dados.
+        printf("\nInforme o mês a ser agendado:\n[1] Janeiro, [2] Fevereiro, etc.\n- \n ");
+        scanf("%d", &mesAgendamento);
+        printf("\nInforme o dia do mês a ser agendado: ");
+        scanf("%d", &diaAgendamento);
+        printf("\nInforme quantos dias de tratamento: ");
+        scanf("%d", &duracaoAgendamento);
+
+        // Conversão de mes/dia para dias do ano e agendamento da consulta.
+        diaAgendamento = converterParaDiasDoAno(mesAgendamento, diaAgendamento, bissexto);
+        agendarConsultas(qtdAgendamentos, diaAgendamento, duracaoAgendamento);
+
+        break;
+      case 4:
+        printf("\nEncerrando programa...");
+        break;
+      default:
+        printf("\nOpção inválida.\n");
+    }
+  }
+  while(escolhaExibicao != 4);
 
   return 0;
 }
@@ -121,16 +173,16 @@ Retorna o número de dias do ano correspondente ao mês e dia fornecidos.
 */
 
 int converterParaDiasDoAno(int mes, int dia, int bissexto) {
-    int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int diasDoAno = 0;
+  int diasEmCadaMes[12] = {31, 28 + bissexto, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  int diasDoAno = 0;
 
-    // Adiciona os dias de cada mês até o mês anterior ao fornecido
-    for (int i = 0; i < mes - 1; i++) {
-        diasDoAno += diasEmCadaMes[i];
-    }
+  // Adiciona os dias de cada mês até o mês anterior ao fornecido
+  for (int i = 0; i < mes - 1; i++) {
+      diasDoAno += diasEmCadaMes[i];
+  }
 
-    // Adiciona os dias do mês fornecido
-    return diasDoAno += dia;
+  // Adiciona os dias do mês fornecido
+  return diasDoAno += dia;
 }
 
 /*
